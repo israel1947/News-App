@@ -1,0 +1,25 @@
+<ion-header [translucent]="true" mode="ios" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      Headlines
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Headlines</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-segment [value]="selectCategory" 
+               mode="md" 
+               (ionChange)="segmentChanged($event)"
+               scrollable="true">
+    <ion-segment-button [value]="category" 
+                       *ngFor="let category of categories">
+      <ion-label class="ion-text-capitalize ">{{category}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <app-articles  [articles]="article"></app-articles>
+</ion-content> 
