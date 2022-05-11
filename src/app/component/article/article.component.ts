@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Article } from 'src/app/interfaces/newsInterfaces';
 //Plugins
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx'
-import { Platform } from '@ionic/angular';
+import { ActionSheetController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-article',
@@ -15,13 +15,10 @@ export class ArticleComponent implements OnInit {
   @Input() index : number;
 
   constructor(private iab: InAppBrowser,
-              private platform: Platform) { }
+              private platform: Platform,
+              public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {}
-  
-  onClick(){
-    
-  }
   
   //open article in browser
   openArticle(){
@@ -34,6 +31,43 @@ export class ArticleComponent implements OnInit {
     //open in case that is a pc or laptop
     window.open(this.article.url,'_blank');
    
+  }
+
+  //action sheat elements 
+  async onOpenMenu(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Options',
+      mode:'ios',
+      buttons: [
+         {
+        text: 'Share',
+        icon: 'share-outline',
+        handler: () => {
+          this.onSharerticle();
+        }
+      }, {
+        text: 'Favorite',
+        icon: 'heart-outline',
+        handler: () => {
+          this.onToogleFav();
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+
+    await actionSheet.present();
+  }
+  onSharerticle(){
+    console.log("entrando en onSharerticle ");
+  }
+  onToogleFav(){
+    console.log('Favorite clicked');
   }
 
 }
