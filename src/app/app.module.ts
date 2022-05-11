@@ -3,10 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+//Plugins
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http'
+
 
 @NgModule({
   declarations: [
@@ -22,10 +25,11 @@ import {HttpClientModule} from '@angular/common/http'
     HttpClientModule
   ],
   providers: [
-      {
-       provide: RouteReuseStrategy,
-       useClass: IonicRouteStrategy
-       }
+    {
+      provide: RouteReuseStrategy,
+      useClass: IonicRouteStrategy
+    },
+    InAppBrowser
   ],
   bootstrap: [
     AppComponent

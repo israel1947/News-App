@@ -25,11 +25,11 @@ export class Tab2Page implements OnInit {
   public selectCategory:String = this.categories[2];
 
 
-  constructor( private newService:NewsService ) {}
+  constructor( private newService:NewsService) {}
 
   ngOnInit(): void {
   
-     this.newService.getNewsForCategory(this.selectCategory)
+     this.newService.getNewsByCategory(this.selectCategory)
       .subscribe(article =>{
         this.article =[...this.article, ...article]
       }); 
@@ -38,7 +38,7 @@ export class Tab2Page implements OnInit {
   //get value for category when click in buttom
   segmentChanged(category:any){
     this.selectCategory = category.detail.value;//get value of button
-    this.newService.getNewsForCategory(this.selectCategory)
+    this.newService.getNewsByCategory(this.selectCategory)
     .subscribe(article =>{
       this.article =[ ...article]
       console.log(article);
@@ -46,5 +46,6 @@ export class Tab2Page implements OnInit {
     
   }
 
+  
 }
  

@@ -2,3 +2,12 @@ ion-card{
     border-radius: 15px;
 }
 
+.prueba{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+ ion-button{
+        float: right;  
+    } 
+}

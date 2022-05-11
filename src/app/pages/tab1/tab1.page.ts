@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
 import { Article } from 'src/app/interfaces/newsInterfaces';
 import { NewsService } from '../../services/news.service';
 
@@ -10,9 +10,11 @@ import { NewsService } from '../../services/news.service';
 })
 export class Tab1Page {
 
+
+
   public articles:Article[]=[];
 
-  constructor( private newService:NewsService ) {}
+  constructor( private newService:NewsService) {}
 
 
   ngOnInit(): void {
@@ -26,5 +28,7 @@ export class Tab1Page {
     }); */
     
   }
+
+ 
 
 }

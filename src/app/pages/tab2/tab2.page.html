@@ -5,7 +5,6 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -16,10 +15,11 @@
                mode="md" 
                (ionChange)="segmentChanged($event)"
                scrollable="true">
+             
     <ion-segment-button [value]="category" 
                        *ngFor="let category of categories">
       <ion-label class="ion-text-capitalize ">{{category}}</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <app-articles  [articles]="article"></app-articles>
+    <app-articles  [articles]="article"></app-articles>
 </ion-content> 
