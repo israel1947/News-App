@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Article } from 'src/app/interfaces/newsInterfaces';
 //Plugins
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx'
-import { ActionSheetController, Platform } from '@ionic/angular';
+import { ActionSheetController, Platform, ToastController } from '@ionic/angular';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { StorageService } from '../../services/storage.service';
 
@@ -20,7 +20,8 @@ export class ArticleComponent implements OnInit {
               private platform: Platform,
               public actionSheetController: ActionSheetController,
               private socialSharing: SocialSharing,
-              private storageService:StorageService) { }
+              private storageService:StorageService,
+              private toastController: ToastController) { }
 
   ngOnInit() {}
   
@@ -48,6 +49,7 @@ export class ArticleComponent implements OnInit {
         icon: articleInFavorite ? 'heart' :'heart-outline',
         handler: () => {
           this.onToogleFav();
+          this.presentToast();
         }
       }, 
       {
@@ -77,6 +79,17 @@ export class ArticleComponent implements OnInit {
 
   
     await actionSheet.present();
+
+  }
+
+  async presentToast() {
+    const articleInFavorite = this.storageService.articleInFavorite(this.article);
+    const toast = await this.toastController.create({
+      message: articleInFavorite ? 'News Added to Favorites' :'News Removed From Favorites',
+      color:'primary',
+      duration: 1000
+    });
+    toast.present();
   }
 
   onSharerticle(){
@@ -92,5 +105,7 @@ export class ArticleComponent implements OnInit {
   onToogleFav(){
     this.storageService.saveRemoveArticle(this.article);
   }
+
+  
 
 }

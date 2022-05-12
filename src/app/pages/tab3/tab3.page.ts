@@ -9,6 +9,8 @@ import { Article } from 'src/app/interfaces/newsInterfaces';
 })
 export class Tab3Page {
 
+  image:string="https://acortar.link/lsdVwO";
+
   get articles():Article[]{
     return this.storageService.getLocalArticles;
   }

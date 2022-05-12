@@ -12,7 +12,13 @@
       <ion-title size="large">Favorites</ion-title> 
     </ion-toolbar>
   </ion-header>
-
+  <div *ngIf="!app-articles" class="ion-margin">
+   <div class="img-list-vacia">
+    <ion-img  [src]="image"></ion-img>
+   </div>
+    <h1 class="ion-text-center">Tu lista está vaciá</h1>
+    <p class="ion-text-center">No hay favoritos para mostrar</p>
+  </div>
   <app-articles  [articles]="articles"></app-articles>
 
  <!--<app-explore-container name="Tab 3 page"></app-explore-container>--> 
