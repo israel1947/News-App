@@ -43,7 +43,13 @@ export class ArticleComponent implements OnInit {
     const articleInFavorite = this.storageService.articleInFavorite(this.article);
 
     const normalBtn=[
-      
+      {
+        text: 'Share',
+        icon: 'share-outline',
+        handler: () => {
+          this.shareNews();
+        }
+      },
       {
         text: articleInFavorite ? 'Remove of Favorite' : 'Favorite',
         icon: articleInFavorite ? 'heart' :'heart-outline',
@@ -62,16 +68,6 @@ export class ArticleComponent implements OnInit {
       }
     ]
 
-    const shareBtn =  {
-      text: 'Share',
-      icon: 'share-outline',
-      handler: () => this.onSharerticle()
-    }
-
-    if(this.platform.is('capacitor')){
-      normalBtn.unshift(shareBtn)
-    }
-    
     const actionSheet = await this.actionSheetController.create({
       header: 'Options',
       buttons: normalBtn,
@@ -82,6 +78,7 @@ export class ArticleComponent implements OnInit {
 
   }
 
+  //show message in toast when click in favorite or remove
   async presentToast() {
     const articleInFavorite = this.storageService.articleInFavorite(this.article);
     const toast = await this.toastController.create({
@@ -92,18 +89,33 @@ export class ArticleComponent implements OnInit {
     toast.present();
   }
 
-  onSharerticle(){
-    const {source,title,url}=this.article
-    this.socialSharing.share(
-     source.name,
-     title,
-     null,
-     url
-    );
-  }
+  
 
   onToogleFav(){
     this.storageService.saveRemoveArticle(this.article);
+  }
+
+  shareNews(){
+    if(this.platform.is('cordova')){
+      const {source,title,url}=this.article
+      this.socialSharing.share(
+      source.name,
+      title,
+      null,
+      url
+      );
+    }else{
+      if (navigator.share) {
+        const {title,url,description}=this.article
+          navigator.share({
+          title: title,
+          text: description,
+          url: url,
+        })
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing', error));
+      }
+    }
   }
 
   
