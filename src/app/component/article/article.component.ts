@@ -4,7 +4,7 @@ import { Article } from 'src/app/interfaces/newsInterfaces';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx'
 import { ActionSheetController, Platform } from '@ionic/angular';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
-import { ActionSheetOptions, Mode } from '@ionic/core';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-article',
@@ -19,7 +19,8 @@ export class ArticleComponent implements OnInit {
   constructor(private iab: InAppBrowser,
               private platform: Platform,
               public actionSheetController: ActionSheetController,
-              private socialSharing: SocialSharing) { }
+              private socialSharing: SocialSharing,
+              private storageService:StorageService) { }
 
   ngOnInit() {}
   
@@ -89,7 +90,7 @@ export class ArticleComponent implements OnInit {
   }
 
   onToogleFav(){
-    console.log('Favorite clicked');
+    this.storageService.saveRemoveArticle(this.article);
   }
 
 }
