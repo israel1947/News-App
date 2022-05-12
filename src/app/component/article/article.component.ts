@@ -39,13 +39,13 @@ export class ArticleComponent implements OnInit {
 
   //action sheat elements 
   async onOpenMenu(){
-    
+    const articleInFavorite = this.storageService.articleInFavorite(this.article);
 
     const normalBtn=[
       
       {
-        text: 'Favorite',
-        icon: 'heart-outline',
+        text: articleInFavorite ? 'Remove of Favorite' : 'Favorite',
+        icon: articleInFavorite ? 'heart' :'heart-outline',
         handler: () => {
           this.onToogleFav();
         }
